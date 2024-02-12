@@ -1,6 +1,6 @@
 <template>
   <h1>Create</h1>
-  <form>
+  <form @submit.prevent="handleAddPost">
     <label>Title</label>
     <input type="text" v-model="title" required />
 
@@ -33,7 +33,21 @@ export default {
       tag.value = "";
     };
 
-    return { title, body, tag, handleKeyDown, tags };
+    let handleAddPost = async () => {
+      let response = await fetch("http://localhost:3000/posts", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title.value,
+          body: body.value,
+          tags: tags.value,
+        }),
+      });
+    };
+
+    return { title, body, tag, handleKeyDown, tags, handleAddPost };
   },
 };
 </script>
@@ -44,7 +58,6 @@ form {
   margin: 0 auto;
   text-align: left;
   padding: 10px;
-  border: 1px solid #eee;
 }
 
 input,
@@ -52,8 +65,9 @@ textarea {
   display: block;
   margin: 10px 0;
   width: 100%;
-  padding: 5px 0;
+  padding: 5px;
   box-sizing: border-box;
+  border: 1px solid #eee;
 }
 
 textarea {
