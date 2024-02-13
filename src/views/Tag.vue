@@ -1,20 +1,32 @@
 <template>
-  <div v-if="error">
+  <div class="tag">
+    <div v-if="error">
     {{ error.message }}
   </div>
-  <div v-if="posts.length">
-    <PostList :posts="filteredPosts" />
+  <div v-if="posts.length" class="layout">
+    <div>
+      <PostList :posts="filteredPosts" />
+    </div>
+    <div>
+      <TagCloud />
+    </div>
   </div>
-  <div v-else>Loading...</div>
+  <div v-else>
+    <Spinner />
+  </div>
+  </div>
 </template>
 
 <script>
 import getPosts from "../composables/getPosts";
 import PostList from "../components/PostList.vue";
+import TagCloud from "../components/TagCloud.vue"
+import Spinner from "../components/Spinner.vue";
 import { computed } from "vue";
+
 export default {
   props: ["tag"],
-  components: { PostList },
+  components: { PostList, TagCloud, Spinner },
   setup(props) {
     let { posts, error, load } = getPosts();
     load();
@@ -29,4 +41,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.tag {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+</style>
