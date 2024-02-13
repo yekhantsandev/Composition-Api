@@ -1,5 +1,4 @@
 <template>
-  <h1>Create</h1>
   <form @submit.prevent="handleAddPost">
     <label>Title</label>
     <input type="text" v-model="title" required />
