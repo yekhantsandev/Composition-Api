@@ -12,8 +12,7 @@ const routes = [
   {
     path: "/posts/:id",
     name: "detail",
-    component: Detail,
-    props: true
+    component: Detail
   },
   {
     path: '/create',
