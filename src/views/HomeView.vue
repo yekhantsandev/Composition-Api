@@ -8,7 +8,7 @@
         <PostList :posts="posts" />
       </div>
       <div>
-        <TagCloud />
+        <TagCloud :posts="posts" />
       </div>
     </div>
     <div v-else>
