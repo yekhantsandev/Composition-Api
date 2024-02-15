@@ -14,6 +14,7 @@ const routes = [
     path: "/posts/:id",
     name: "detail",
     component: Detail,
+    props: true
   },
   {
     path: "/create",
