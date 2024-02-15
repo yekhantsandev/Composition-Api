@@ -19,6 +19,7 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { db } from "../firebase/config";
 
 export default {
   setup() {
@@ -36,20 +37,16 @@ export default {
     };
 
     let handleAddPost = async () => {
-      let response = await fetch("http://localhost:3000/posts", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title.value,
-          body: body.value,
-          tags: tags.value,
-        }),
-      });
+      let newPost = {
+        title: title.value,
+        body: body.value,
+        tags: tags.value,
+      };
+      let res = await db.collection("posts").add(newPost);
+      console.log(res);
 
       // redirect user to home page
-      router.push({name: 'home'})
+      router.push({ name: "home" });
     };
 
     return { title, body, tag, handleKeyDown, tags, handleAddPost };
